@@ -518,7 +518,7 @@
 // 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
-    CGFloat contentWidth = 0;//[self itemMarginAtIndex:0];//第一次不需要间隔
+    CGFloat contentWidth = 15;//[self itemMarginAtIndex:0];//第一个间隔给默认15
     for (int i = 0; i < self.titlesCount; i++) {
         CGFloat itemW = 60.0;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
