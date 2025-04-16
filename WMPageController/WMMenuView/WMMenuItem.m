@@ -24,6 +24,8 @@
         self.selectedColor = [UIColor blackColor];
         self.normalSize    = 15;
         self.selectedSize  = 18;
+        self.normalFont    = [UIFont systemFontOfSize:15];
+        self.selectedFont  = [UIFont systemFontOfSize:15];
         self.numberOfLines = 0;
         
         [self setupGestureRecognizer];

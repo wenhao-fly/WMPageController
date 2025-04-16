@@ -96,6 +96,13 @@
     if ([key isEqualToString:@"WMMenuViewPositionBottom"]) {
         vc.menuViewPosition = WMMenuViewPositionBottom;
     }
+    if ([key isEqualToString:@"WMMenuViewStyleLine"]) {
+        vc.itemMargin = 20;
+        vc.selectedFont = [UIFont systemFontOfSize:20 weight:200];
+        ////实际是在按比例缩放
+        vc.titleSizeNormal = 12;
+        vc.titleSizeSelected = 17;
+    }
     [self customizePageController:vc];
     [self.navigationController pushViewController:vc animated:YES];
 }

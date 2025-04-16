@@ -188,6 +188,10 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  */
 @property (nonatomic, assign) CGFloat titleSizeNormal;
 
+//add
+@property (nonatomic, strong)UIFont *normalFont;
+@property (nonatomic, strong)UIFont *selectedFont;
+
 /**
  *  标题选中时的颜色, 颜色是可动画的.
  *  The title color when selected, the color is animatable.
@@ -199,12 +203,6 @@ extern NSString *const WMControllerDidFullyDisplayedNotification;
  *  The title's normal color, the color is animatable.
  */
 @property (nonatomic, strong) UIColor *titleColorNormal;
-
-/**
- *  标题的字体名字
- *  The name of title's font
- */
-@property (nonatomic, nullable, copy) NSString *titleFontName;
 
 /**
  *  每个 MenuItem 的宽度

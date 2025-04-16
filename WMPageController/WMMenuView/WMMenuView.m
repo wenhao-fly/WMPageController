@@ -176,6 +176,13 @@
     return 15.0;
 }
 
+- (UIFont *)fontForState:(WMMenuItemState)state atIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(menuView:titleFontForState:atIndex:)]) {
+        return [self.delegate menuView:self titleFontForState:state atIndex:index];
+    }
+    return [UIFont systemFontOfSize:15];
+}
+
 - (UIView *)badgeViewAtIndex:(NSInteger)index {
     if (![self.dataSource respondsToSelector:@selector(menuView:badgeViewAtIndex:)]) {
         return nil;
@@ -485,16 +492,16 @@
         item.textAlignment = NSTextAlignmentCenter;
         item.userInteractionEnabled = YES;
         item.backgroundColor = [UIColor clearColor];
+        //实际是在按比例缩放
         item.normalSize    = [self sizeForState:WMMenuItemStateNormal atIndex:i];
         item.selectedSize  = [self sizeForState:WMMenuItemStateSelected atIndex:i];
+        //实际使用的是selectedFont
+        item.normalFont    = [self fontForState:WMMenuItemStateNormal atIndex:i];
+        item.selectedFont  = [self fontForState:WMMenuItemStateSelected atIndex:i];
         item.normalColor   = [self colorForState:WMMenuItemStateNormal atIndex:i];
         item.selectedColor = [self colorForState:WMMenuItemStateSelected atIndex:i];
         item.speedFactor   = self.speedFactor;
-        if (self.fontName) {
-            item.font = [UIFont fontWithName:self.fontName size:item.selectedSize];
-        } else {
-            item.font = [UIFont systemFontOfSize:item.selectedSize];
-        }
+        item.font = item.selectedFont;
         if ([self.dataSource respondsToSelector:@selector(menuView:initialMenuItem:atIndex:)]) {
             item = [self.dataSource menuView:self initialMenuItem:item atIndex:i];
         }
@@ -511,7 +518,7 @@
 // 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
-    CGFloat contentWidth = [self itemMarginAtIndex:0];
+    CGFloat contentWidth = 0;//[self itemMarginAtIndex:0];//第一次不需要间隔
     for (int i = 0; i < self.titlesCount; i++) {
         CGFloat itemW = 60.0;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {

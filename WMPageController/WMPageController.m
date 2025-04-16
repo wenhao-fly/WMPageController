@@ -391,6 +391,8 @@ static NSInteger const kWMControllerCountUndefined = -1;
 - (void)wm_setup {
     _titleSizeSelected  = 18.0f;
     _titleSizeNormal    = 15.0f;
+    _selectedFont    = [UIFont systemFontOfSize:18];
+    _normalFont    = [UIFont systemFontOfSize:15];
     _titleColorSelected = [UIColor colorWithRed:168.0/255.0 green:20.0/255.0 blue:4/255.0 alpha:1];
     _titleColorNormal   = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     _menuItemWidth = 65.0f;
@@ -461,9 +463,6 @@ static NSInteger const kWMControllerCountUndefined = -1;
     menuView.progressViewIsNaughty = self.progressViewIsNaughty;
     menuView.progressViewCornerRadius = self.progressViewCornerRadius;
     menuView.showOnNavigationBar = self.showOnNavigationBar;
-    if (self.titleFontName) {
-        menuView.fontName = self.titleFontName;
-    }
     if (self.progressColor) {
         menuView.lineColor = self.progressColor;
     }
@@ -668,7 +667,7 @@ static NSInteger const kWMControllerCountUndefined = -1;
 
 - (CGFloat)wm_calculateItemWithAtIndex:(NSInteger)index {
     NSString *title = [self titleAtIndex:index];
-    UIFont *titleFont = self.titleFontName ? [UIFont fontWithName:self.titleFontName size:self.titleSizeSelected] : [UIFont systemFontOfSize:self.titleSizeSelected];
+    UIFont *titleFont = self.selectedFont;
     NSDictionary *attrs = @{NSFontAttributeName: titleFont};
     CGFloat itemWidth = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attrs context:nil].size.width;
     return ceil(itemWidth);
@@ -824,6 +823,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
         return [self.itemsMargins[index] floatValue];
     }
     return self.itemMargin;
+}
+
+- (UIFont *)menuView:(WMMenuView *)menu titleFontForState:(WMMenuItemState)state atIndex:(NSInteger)index {
+    switch (state) {
+        case WMMenuItemStateSelected: return self.selectedFont;
+        case WMMenuItemStateNormal: return self.normalFont;
+    }
 }
 
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index {

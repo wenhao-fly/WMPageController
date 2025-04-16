@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu itemMarginAtIndex:(NSInteger)index;
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index;
+- (UIFont *)menuView:(WMMenuView *)menu titleFontForState:(WMMenuItemState)state atIndex:(NSInteger)index;
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index;
 - (void)menuView:(WMMenuView *)menu didLayoutItemFrame:(WMMenuItem *)menuItem atIndex:(NSInteger)index;
 @end
